@@ -1,4 +1,4 @@
-package mai.team2.seminar_23_10_23;
+/*package mai.team2.seminar_23_10_23;
 
 import android.content.Context;
 import android.view.LayoutInflater;
@@ -50,4 +50,4 @@ public class StateAdapter extends ArrayAdapter<State> {
             capitalView = view.findViewById(R.id.capital);
         }
     }
-}
+}*/
