@@ -3,6 +3,7 @@ package mai.team2.seminar_23_10_23;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.recyclerview.widget.RecyclerView;
 import android.os.Bundle;
+import android.widget.Toast;
 import java.util.ArrayList;
 
 public class MainActivity extends AppCompatActivity {
@@ -15,8 +16,17 @@ public class MainActivity extends AppCompatActivity {
         // начальная инициализация списка
         setInitialData();
         RecyclerView recyclerView = findViewById(R.id.list);
+        // определяем слушателя нажатия элемента в списке
+        StateAdapter.OnStateClickListener stateClickListener = new StateAdapter.OnStateClickListener() {
+            @Override
+            public void onStateClick(State state, int position) {
+
+                Toast.makeText(getApplicationContext(), "Был выбран пункт " + state.getName(),
+                        Toast.LENGTH_SHORT).show();
+            }
+        };
         // создаем адаптер
-        StateAdapter adapter = new StateAdapter(this, states);
+        StateAdapter adapter = new StateAdapter(this, states, stateClickListener);
         // устанавливаем для списка адаптер
         recyclerView.setAdapter(adapter);
     }
