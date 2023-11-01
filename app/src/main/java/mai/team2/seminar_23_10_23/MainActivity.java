@@ -2,22 +2,35 @@ package mai.team2.seminar_23_10_23;
 
 import androidx.appcompat.app.AppCompatActivity;
 import android.os.Bundle;
+import android.view.View;
+import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
-import android.widget.MultiAutoCompleteTextView;
+import android.widget.GridView;
+import android.widget.Toast;
 
 public class MainActivity extends AppCompatActivity {
 
-    String[] cities = {"Moskau", "Samara", "Wologda", "Wolgograd", "Sratow", "Воронеж"};
+    String[] countries = { "Бразилия", "Аргентина", "Чили", "Колумбия", "Уругвай"};
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
-        // Получаем ссылку на элемент AutoCompleteTextView в разметке
-        MultiAutoCompleteTextView autoCompleteTextView = findViewById(R.id.autocomplete);
-        // Создаем адаптер для автозаполнения элемента MultiAutoCompleteTextView
-        ArrayAdapter<String> adapter = new ArrayAdapter(this, com.google.android.material.R.layout.support_simple_spinner_dropdown_item, cities);
-        autoCompleteTextView.setAdapter(adapter);
-        // установка запятой в качестве разделителя
-        autoCompleteTextView.setTokenizer(new MultiAutoCompleteTextView.CommaTokenizer());
+
+        // получаем элемент GridView
+        GridView countriesList = findViewById(R.id.gridview);
+        // создаем адаптер
+        ArrayAdapter<String> adapter = new ArrayAdapter(this, android.R.layout.simple_list_item_1, countries);
+        countriesList.setAdapter(adapter);
+
+        AdapterView.OnItemClickListener itemListener = new AdapterView.OnItemClickListener() {
+
+            @Override
+            public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
+                Toast.makeText(getApplicationContext(),"Вы выбрали "
+                                + parent.getItemAtPosition(position).toString(),
+                        Toast.LENGTH_SHORT).show();
+            }
+        };
+        countriesList.setOnItemClickListener(itemListener);
     }
 }
