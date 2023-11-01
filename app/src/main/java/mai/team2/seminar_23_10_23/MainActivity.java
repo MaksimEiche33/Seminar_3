@@ -2,43 +2,22 @@ package mai.team2.seminar_23_10_23;
 
 import androidx.appcompat.app.AppCompatActivity;
 import android.os.Bundle;
-import android.view.View;
-import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
-import android.widget.Spinner;
-import android.widget.TextView;
+import android.widget.MultiAutoCompleteTextView;
 
 public class MainActivity extends AppCompatActivity {
 
-    String[] countries = { "Бразилия", "Аргентина", "Колумбия", "Чили", "Уругвай"};
+    String[] cities = {"Moskau", "Samara", "Wologda", "Wolgograd", "Sratow", "Воронеж"};
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
-
-        TextView selection = findViewById(R.id.selection);
-
-        Spinner spinner = findViewById(R.id.spinner);
-        // Создаем адаптер ArrayAdapter с помощью массива строк и стандартной разметки элемета spinner
-        ArrayAdapter<String> adapter = new ArrayAdapter(this, android.R.layout.simple_spinner_item, countries);
-        // Определяем разметку для использования при выборе элемента
-        adapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
-        // Применяем адаптер к элементу spinner
-        spinner.setAdapter(adapter);
-
-        AdapterView.OnItemSelectedListener itemSelectedListener = new AdapterView.OnItemSelectedListener() {
-            @Override
-            public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
-
-                // Получаем выбранный объект
-                String item = (String)parent.getItemAtPosition(position);
-                selection.setText(item);
-            }
-
-            @Override
-            public void onNothingSelected(AdapterView<?> parent) {
-            }
-        };
-        spinner.setOnItemSelectedListener(itemSelectedListener);
+        // Получаем ссылку на элемент AutoCompleteTextView в разметке
+        MultiAutoCompleteTextView autoCompleteTextView = findViewById(R.id.autocomplete);
+        // Создаем адаптер для автозаполнения элемента MultiAutoCompleteTextView
+        ArrayAdapter<String> adapter = new ArrayAdapter(this, com.google.android.material.R.layout.support_simple_spinner_dropdown_item, cities);
+        autoCompleteTextView.setAdapter(adapter);
+        // установка запятой в качестве разделителя
+        autoCompleteTextView.setTokenizer(new MultiAutoCompleteTextView.CommaTokenizer());
     }
 }
