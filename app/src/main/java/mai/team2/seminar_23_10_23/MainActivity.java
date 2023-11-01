@@ -1,36 +1,31 @@
 package mai.team2.seminar_23_10_23;
 
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.recyclerview.widget.RecyclerView;
 import android.os.Bundle;
-import android.view.View;
-import android.widget.AdapterView;
-import android.widget.ArrayAdapter;
-import android.widget.GridView;
-import android.widget.Toast;
+import java.util.ArrayList;
 
 public class MainActivity extends AppCompatActivity {
 
-    String[] countries = { "Бразилия", "Аргентина", "Чили", "Колумбия", "Уругвай"};
+    ArrayList<State> states = new ArrayList<State>();
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
-
-        // получаем элемент GridView
-        GridView countriesList = findViewById(R.id.gridview);
+        // начальная инициализация списка
+        setInitialData();
+        RecyclerView recyclerView = findViewById(R.id.list);
         // создаем адаптер
-        ArrayAdapter<String> adapter = new ArrayAdapter(this, android.R.layout.simple_list_item_1, countries);
-        countriesList.setAdapter(adapter);
+        StateAdapter adapter = new StateAdapter(this, states);
+        // устанавливаем для списка адаптер
+        recyclerView.setAdapter(adapter);
+    }
+    private void setInitialData(){
 
-        AdapterView.OnItemClickListener itemListener = new AdapterView.OnItemClickListener() {
-
-            @Override
-            public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
-                Toast.makeText(getApplicationContext(),"Вы выбрали "
-                                + parent.getItemAtPosition(position).toString(),
-                        Toast.LENGTH_SHORT).show();
-            }
-        };
-        countriesList.setOnItemClickListener(itemListener);
+        states.add(new State ("Бразилия", "Бразилиа", R.drawable.brazil));
+        states.add(new State ("Аргентина", "Буэнос-Айрес", R.drawable.argent));
+        states.add(new State ("Колумбия", "Богота", R.drawable.columb));
+        states.add(new State ("Уругвай", "Монтевидео", R.drawable.urug));
+        states.add(new State ("Чили", "Сантьяго", R.drawable.chili));
     }
 }

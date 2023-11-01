@@ -1,3 +1,4 @@
+/*
 package mai.team2.seminar_23_10_23;
 
 import android.content.Context;
@@ -67,4 +68,4 @@ class ProductAdapter extends ArrayAdapter<Product> {
             countView = view.findViewById(R.id.countView);
         }
     }
-}
+}*/
